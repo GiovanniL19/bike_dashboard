@@ -1,10 +1,23 @@
 {{partial "navigation"}}
 
-<div class="row">
-  <div class="col-md-4">
+<div class="container">
+  <div class="row main">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <h5>Orders</h5>
+        <ul class="list-group">
+          <li class="list-group-item">test</li>
+          <li class="list-group-item">test</li>
+          <li class="list-group-item">test</li>
+          <li class="list-group-item">test</li>
+          {{#each orders as |order|}}
+            <li class="list-group-item">{{order.transactionID}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="col-md-8">
 
-  </div>
-  <div class="col-md-8">
-
+      </div>
+    </div>
   </div>
 </div>

@@ -1,1 +1,19 @@
 @import "bootstrap";
+
+$theme: #61b5e8;
+
+body{
+  background: #f7f7f7;
+}
+.navbar-default {
+  background-color: #ffffff;
+  border:none;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+  color: #fff;
+  background-color: $theme;
+}
+.container {
+  background: white;
+  margin-top:6em;
+}
