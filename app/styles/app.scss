@@ -9,11 +9,54 @@ body{
   background-color: #ffffff;
   border:none;
 }
+.dropdown{
+  margin-top:1.1em;
+  display: inline-block;
+  a{
+    margin-right:1em;
+  }
+}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
   color: #fff;
   background-color: $theme;
 }
-.container {
+.header{
+  height: 10em;
+  background: #61b5e8;
+  color: white;
+  border-top: 1em solid #58a9da;
+  text-align: center;
+  text-transform: uppercase;
+  padding:1em;
+  h4{
+    margin-top:1em;
+    font-size:2em;
+  }
+}
+.section{
   background: white;
   margin-top:6em;
+  min-height:80vh;
+  .list{
+    padding:1em;
+    border-right:1px solid #ccc;
+    .orange{
+      color:#ffb31d;
+    }
+    .green{
+      color:#42b342;
+    }
+    .red{
+      color:#ce4c4c;
+    }
+    li{
+      cursor:pointer;
+      &:hover{
+        font-weight:bold;
+      }
+    }
+  }
+  .summary{
+    padding: 1em;
+  }
 }

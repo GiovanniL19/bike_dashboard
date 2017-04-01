@@ -1,22 +1,19 @@
-import Model from 'ember-pouch/model';
 import DS from 'ember-data';
 import MF from 'model-fragments';
 import moment from 'moment';
 
 const {
-  attr,
-  belongsTo
+  attr
 } = DS;
 
 const {
   fragmentArray
 } = MF;
 
-export default Model.extend({
+export default DS.Model.extend({
   type: attr("string", {defaultValue: 'transaction'}),
   lines: fragmentArray('line-fragment', {async: true}),
   transactionID: attr("string"),
-  supplier: belongsTo("supplier", {async: true}),
   dateCreated: attr("number"),
   eta: attr("number"),
   status: attr("string", {defaultValue: "PROCESSING"}),
