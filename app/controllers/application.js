@@ -131,6 +131,7 @@ export default Ember.Controller.extend({
       }else{
         this.set("selectedCustomer", customer);
       }
+      this.sort(this.get("statusSort"));
     },
     select(order){
       this.set("selectedOrder", order);
