@@ -9,43 +9,5 @@
       </button>
       <a class="navbar-brand" href="#">Orders Overview</a>
     </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a>Sort By</a></li>
-        <span class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{customerSort}}<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a {{action "selectCustomer" "all"}}>All</a></li>
-            {{#each customers as |customer|}}
-              <li><a {{action "selectCustomer" customer}}>{{customer.fullName}}</a></li>
-            {{/each}}
-          </ul>
-        </span>
-
-        <span class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{itemType}}<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a {{action "selectItem" "all"}}>All</a></li>
-            {{#each items as |item|}}
-              <li><a {{action "selectItem" item}}>{{item.name}}</a></li>
-            {{/each}}
-          </ul>
-        </span>
-
-        <span class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{statusSort}}<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a {{action "sortStatus" "all"}}>All</a></li>
-            <li><a {{action "sortStatus" "Awaiting Confirmation"}}>Awaiting Confirmation</a></li>
-            <li><a {{action "sortStatus" "Awaiting Materials"}}>Awaiting Material</a></li>
-            <li><a {{action "sortStatus" "Awaiting Production"}}>Awaiting Production</a></li>
-            <li><a {{action "sortStatus" "In Production"}}>In Production</a></li>
-            <li><a {{action "sortStatus" "Complete"}}>Complete (Awaiting Inspection)</a></li>
-            <li><a {{action "sortStatus" "Ready To Dispatch"}}>Ready To Dispatch</a></li>
-          </ul>
-        </span>
-      </ul>
-    </div>
   </div>
 </nav>

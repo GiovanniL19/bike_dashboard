@@ -10,16 +10,7 @@ body{
   border:none;
   text-transform: uppercase;
 }
-.dropdown{
-  margin-top:1.1em;
-  display: inline-block;
-  a{
-    margin-right:1em;
-    font-weight: bold;
-    color: #777777;
-    cursor:pointer;
-  }
-}
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
   color: #fff;
   background-color: $theme;
@@ -44,13 +35,38 @@ body{
 .section{
   background: white;
   margin-top:4em;
-  min-height:80vh;
-  .main{
-    margin-top:2em;
+  margin-bottom:2em;
+  .sort{
+    width: 100%;
+    text-align: right;
+    padding-right: 2em;
+    li{
+      list-style:none;
+      display:inline;
+      &:first-child{
+        margin-right:1em;
+      }
+    }
+    .dropdown{
+      margin-top:1.1em;
+      display: inline-block;
+      a{
+        margin-right:1em;
+        font-weight: bold;
+        color: #777777;
+        cursor:pointer;
+      }
+      li{
+        list-style:none;
+        display:inline-block;
+        &:first-child{
+          margin-right:1em;
+        }
+      }
+    }
   }
   .list{
     padding:1em;
-    border-right:1px solid #ccc;
     .orange{
       color:#ffb31d;
     }
