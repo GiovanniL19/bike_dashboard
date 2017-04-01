@@ -14,6 +14,7 @@ export default Ember.Controller.extend({
   customers: [],
   sortedList: [],
   selectedCustomer: null,
+  selectedItem: null,
   showingSortedList: false,
   items: [],
 
@@ -51,25 +52,58 @@ export default Ember.Controller.extend({
 
   sort: function(status){
     let controller = this;
+    this.set("selectedOrder", null);
     this.set("sortedList", []);
-    this.set("showingSortedList", false);
-    this.set("statusSort", "All");
+    this.set("showingSortedList", true);
 
-    if(status !== "all"){
-      this.set("showingSortedList", true);
-      this.set("statusSort", status);
-      this.get("model").forEach(function(item){
+    this.get("model").forEach(function(item){
+      debugger;
+      if(controller.get("selectedItem")){
         if(controller.get("selectedCustomer")){
           if(item.get("status") === status && item.get("customer.id") === controller.get("selectedCustomer.id")){
-            controller.get("sortedList").pushObject(item);
+            item.get("lines").forEach(function(line){
+              if(line.get("item") === controller.get("selectedItem.id")){
+                controller.get("sortedList").pushObject(item);
+              }
+            });
           }
         }else{
           if(item.get("status") === status){
+            item.get("lines").forEach(function(line){
+              if(line.get("item") === controller.get("selectedItem.id")){
+                controller.get("sortedList").pushObject(item);
+              }
+            });
+          }else if(status === "All Status"){
+            if(controller.get("selectedItem")) {
+              item.get("lines").forEach(function (line) {
+                if (line.get("item") === controller.get("selectedItem.id")) {
+                  controller.get("sortedList").pushObject(item);
+                }
+              });
+            }else{
+              controller.get("sortedList").pushObject(item);
+            }
+          }
+        }
+      } else if(controller.get("selectedCustomer")){
+        if(status === "All Status"){
+          if(item.get("customer.id") === controller.get("selectedCustomer.id")){
+            controller.get("sortedList").pushObject(item);
+          }
+        }else{
+          if(item.get("status") === status && item.get("customer.id") === controller.get("selectedCustomer.id")){
             controller.get("sortedList").pushObject(item);
           }
         }
-      })
-    }
+      }else{
+        if(status === "All Status"){
+            controller.get("sortedList").pushObject(item);
+        }else if(item.get("status") === status){
+          controller.get("sortedList").pushObject(item);
+        }
+      }
+    });
   },
   aConfirmationObserver: function(){
     let controller = this;
@@ -122,13 +156,30 @@ export default Ember.Controller.extend({
   }.observes("model"),
 
   actions: {
+    selectItem(item){
+      if(item === "all"){
+        this.set("itemType", "All Item Types");
+      }else{
+        this.set("itemType", item.get("name"));
+        this.set("selectedItem", item);
+        this.sort(this.get("statusSort"));
+      }
+    },
     sortStatus(status){
-      this.sort(status);
+      if (status === "all") {
+        this.set("statusSort", "All Status");
+        this.sort("All Status");
+      }else{
+        this.set("statusSort", status);
+        this.sort(status);
+      }
     },
     selectCustomer(customer){
       if(customer === "all"){
+        this.set("customerSort", "All Customers");
         this.set("selectedCustomer", null);
       }else{
+        this.set("customerSort", customer.get("fullName"));
         this.set("selectedCustomer", customer);
       }
       this.sort(this.get("statusSort"));
