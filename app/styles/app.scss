@@ -28,6 +28,7 @@ body{
   text-align: center;
   text-transform: uppercase;
   padding:1em;
+  margin-bottom:2em;
   h4{
     margin-top:1em;
     font-size:2em;
@@ -37,6 +38,9 @@ body{
   background: white;
   margin-top:6em;
   min-height:80vh;
+  .main{
+    margin-top:2em;
+  }
   .list{
     padding:1em;
     border-right:1px solid #ccc;
