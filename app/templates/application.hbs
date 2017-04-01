@@ -1,9 +1,6 @@
 {{partial "navigation"}}
 
 <div class="container section">
-  <div class="row">
-    <p>Orders Dashboard for Staffs Bike System</p>
-  </div>
   <div class="row header">
     <div class="col-md-3 col-sm-3">
       <h5>Awaiting Confirmation</h5>
@@ -34,9 +31,25 @@
       <div class="col-md-4 col-sm-4 list">
         <h5>Orders</h5>
         <ul class="list-group">
-          {{#each model as |order|}}
-            <li class="list-group-item {{if order.isRed "red"}} {{if order.isGreen "green"}} {{if order.isOrange "orange"}}" {{action "select" order}}>{{order.transactionID}} - {{order.status}}</li>
-          {{/each}}
+          {{#if showingSortedList}}
+            {{#each sortedList as |order|}}
+              <li class="list-group-item {{if order.isRed "red"}} {{if order.isGreen "green"}} {{if order.isOrange "orange"}}" {{action "select" order}}>{{order.transactionID}} - {{order.status}}</li>
+            {{else}}
+              <h5>No orders found</h5>
+            {{/each}}
+          {{else}}
+            {{#if selectedCustomer}}
+              {{#each selectedCustomer.transactions as |order|}}
+                <li class="list-group-item {{if order.isRed "red"}} {{if order.isGreen "green"}} {{if order.isOrange "orange"}}" {{action "select" order}}>{{order.transactionID}} - {{order.status}}</li>
+              {{else}}
+                <h5>Customer has no order history</h5>
+              {{/each}}
+            {{else}}
+              {{#each model as |order|}}
+                <li class="list-group-item {{if order.isRed "red"}} {{if order.isGreen "green"}} {{if order.isOrange "orange"}}" {{action "select" order}}>{{order.transactionID}} - {{order.status}}</li>
+              {{/each}}
+            {{/if}}
+          {{/if}}
         </ul>
       </div>
       <div class="col-md-8 col-sm-8 summary">

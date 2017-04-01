@@ -7,8 +7,15 @@ export default Ember.Controller.extend({
   inProduction: 0,
   complete: 0,
   ready: 0,
-
+  itemType: "All Item Types",
+  statusSort: "All Status",
+  customerSort: "All Customers",
   chartData: null,
+  customers: [],
+  sortedList: [],
+  selectedCustomer: null,
+  showingSortedList: false,
+  items: [],
 
   addData: function(){
     var data = [this.get("aConfirmation"), this.get("aMaterials"), this.get("inProduction"), this.get("complete"), this.get("ready")];
@@ -42,6 +49,28 @@ export default Ember.Controller.extend({
     this.set("chartData", chartData);
   }.observes("aConfirmation", "aMaterials", "inProduction", "complete", "ready"),
 
+  sort: function(status){
+    let controller = this;
+    this.set("sortedList", []);
+    this.set("showingSortedList", false);
+    this.set("statusSort", "All");
+
+    if(status !== "all"){
+      this.set("showingSortedList", true);
+      this.set("statusSort", status);
+      this.get("model").forEach(function(item){
+        if(controller.get("selectedCustomer")){
+          if(item.get("status") === status && item.get("customer.id") === controller.get("selectedCustomer.id")){
+            controller.get("sortedList").pushObject(item);
+          }
+        }else{
+          if(item.get("status") === status){
+            controller.get("sortedList").pushObject(item);
+          }
+        }
+      })
+    }
+  },
   aConfirmationObserver: function(){
     let controller = this;
 
@@ -93,6 +122,16 @@ export default Ember.Controller.extend({
   }.observes("model"),
 
   actions: {
+    sortStatus(status){
+      this.sort(status);
+    },
+    selectCustomer(customer){
+      if(customer === "all"){
+        this.set("selectedCustomer", null);
+      }else{
+        this.set("selectedCustomer", customer);
+      }
+    },
     select(order){
       this.set("selectedOrder", order);
     }

@@ -13,24 +13,36 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li><a>Sort By</a></li>
-        <li><a href="#"><strong>Customers</strong></a></li>
-
         <span class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Item Type<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{customerSort}}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">All</a></li>
+            <li><a href="#" {{action "selectCustomer" "all"}}>All</a></li>
+            {{#each customers as |customer|}}
+              <li><a {{action "selectCustomer" customer}}>{{customer.fullName}}</a></li>
+            {{/each}}
           </ul>
         </span>
 
         <span class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Status<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{itemType}}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Awaiting Confirmation</a></li>
-            <li><a href="#">Awaiting Material</a></li>
-            <li><a href="#">Awaiting Production</a></li>
-            <li><a href="#">In Production</a></li>
-            <li><a href="#">Complete (Awaiting Inspection)</a></li>
-            <li><a href="#">Ready Dispatch</a></li>
+            <li><a href="#">All</a></li>
+            {{#each items as |item|}}
+              <li><a {{action "selectItem" item}}>{{item.name}}</a></li>
+            {{/each}}
+          </ul>
+        </span>
+
+        <span class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{statusSort}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a {{action "sortStatus" "all"}}>All</a></li>
+            <li><a {{action "sortStatus" "Awaiting Confirmation"}}>Awaiting Confirmation</a></li>
+            <li><a {{action "sortStatus" "Awaiting Materials"}}>Awaiting Material</a></li>
+            <li><a {{action "sortStatus" "Awaiting Production"}}>Awaiting Production</a></li>
+            <li><a {{action "sortStatus" "In Production"}}>In Production</a></li>
+            <li><a {{action "sortStatus" "Complete"}}>Complete (Awaiting Inspection)</a></li>
+            <li><a {{action "sortStatus" "Ready To Dispatch"}}>Ready To Dispatch</a></li>
           </ul>
         </span>
       </ul>

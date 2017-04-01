@@ -1,9 +1,10 @@
 import DS from 'ember-data';
-import MF from 'model-fragments';
+import MF from 'ember-data-model-fragments';
 import moment from 'moment';
 
 const {
-  attr
+  attr,
+  belongsTo
 } = DS;
 
 const {
@@ -11,7 +12,7 @@ const {
 } = MF;
 
 export default DS.Model.extend({
-  type: attr("string", {defaultValue: 'transaction'}),
+  type: attr("string", {defaultValue: 'Transaction'}),
   lines: fragmentArray('line-fragment', {async: true}),
   transactionID: attr("string"),
   dateCreated: attr("number"),
@@ -21,6 +22,7 @@ export default DS.Model.extend({
   totalCost: attr("string"),
   rejectDelivery: attr("boolean"),
   stage: attr("string"),
+  customer: belongsTo("customer", {async: true}),
 
   //Computed Properties
   totalHuman: function(){
