@@ -1,18 +1,29 @@
 {{partial "navigation"}}
 
 <div class="container section">
+  <div class="row">
+    <p>Orders Dashboard for Staffs Bike System</p>
+  </div>
   <div class="row header">
-    <div class="col-md-4 col-sm-4">
-      <h5>Processing Orders</h5>
-      <h4>{{processingItems}}</h4>
+    <div class="col-md-3 col-sm-3">
+      <h5>Awaiting Confirmation</h5>
+      <h4>{{aConfirmation}}</h4>
     </div>
-    <div class="col-md-4 col-sm-4">
-      <h5>Missing Items</h5>
-      <h4>{{missingItems}}</h4>
+    <div class="col-md-2 col-sm-2">
+      <h5>Awaiting Materials</h5>
+      <h4>{{aMaterials}}</h4>
     </div>
-    <div class="col-md-4 col-sm-4">
-      <h5>Complete</h5>
-      <h4>{{completeItems}}</h4>
+    <div class="col-md-2 col-sm-2">
+      <h5>In Production</h5>
+      <h4>{{inProduction}}</h4>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <h5>Complete (Awaiting Inspection)</h5>
+      <h4>{{complete}}</h4>
+    </div>
+    <div class="col-md-2 col-sm-2">
+      <h5>Ready</h5>
+      <h4>{{ready}}</h4>
     </div>
   </div>
   <div class="row">
@@ -24,7 +35,7 @@
         <h5>Orders</h5>
         <ul class="list-group">
           {{#each model as |order|}}
-            <li class="list-group-item {{if order.isMissingItems "red"}} {{if order.isComplete "green"}} {{if order.isProcessing "orange"}}" {{action "select" order}}>{{order.transactionID}} - {{order.status}}</li>
+            <li class="list-group-item {{if order.isRed "red"}} {{if order.isGreen "green"}} {{if order.isOrange "orange"}}" {{action "select" order}}>{{order.transactionID}} - {{order.status}}</li>
           {{/each}}
         </ul>
       </div>

@@ -6,14 +6,17 @@ body{
   background: #f7f7f7;
 }
 .navbar-default {
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.95);
   border:none;
+  text-transform: uppercase;
 }
 .dropdown{
   margin-top:1.1em;
   display: inline-block;
   a{
     margin-right:1em;
+    font-weight: bold;
+    color: #777777;
   }
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{

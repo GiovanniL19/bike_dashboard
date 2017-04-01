@@ -20,6 +20,7 @@ export default DS.Model.extend({
   note: attr("string"),
   totalCost: attr("string"),
   rejectDelivery: attr("boolean"),
+  stage: attr("string"),
 
   //Computed Properties
   totalHuman: function(){
@@ -90,22 +91,22 @@ export default DS.Model.extend({
       return moment.unix(this.get("eta")).fromNow();
     }
   }.property("eta", "status"),
-  isComplete: function(){
-    if(this.get("status") === "DELIVERED") {
+  isOrange: function(){
+    if(this.get("status") === "In Production") {
       return true;
     }else{
       return false;
     }
   }.property("status"),
-  isMissingItems: function(){
-    if(this.get("status") === "MISSING ITEMS") {
+  isRed: function(){
+    if(this.get("status") === "Awaiting Materials" || this.get("status") === "Awaiting Confirmation") {
       return true;
     }else{
       return false;
     }
   }.property("status"),
-  isProcessing: function(){
-    if(this.get("status") === "PROCESSING") {
+  isGreen: function(){
+    if(this.get("status") === "Ready To Dispatch" || this.get("status") === "Complete") {
       return true;
     }else{
       return false;
