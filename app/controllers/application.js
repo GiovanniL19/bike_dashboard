@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
   selectedOrder: null,
   aConfirmation: 0,
   aMaterials: 0,
+  aProduction: 0,
   inProduction: 0,
   complete: 0,
   ready: 0,
@@ -19,9 +20,9 @@ export default Ember.Controller.extend({
   items: [],
 
   addData: function(){
-    var data = [this.get("aConfirmation"), this.get("aMaterials"), this.get("inProduction"), this.get("complete"), this.get("ready")];
+    var data = [this.get("aConfirmation"), this.get("aMaterials"), this.get("aProduction"), this.get("inProduction"), this.get("complete"), this.get("ready")];
     var chartData = {
-      labels: ["Awaiting Confirmation", "Awaiting Materials", "In Production", "Complete (Awaiting Inspection)", "Ready To Dispatch"],
+      labels: ["Awaiting Confirmation", "Awaiting Materials", "Awaiting Production", "In Production", "Complete (Awaiting Inspection)", "Ready To Dispatch"],
       datasets: [
         {
           label: "Orders",
@@ -48,7 +49,7 @@ export default Ember.Controller.extend({
       ]
     };
     this.set("chartData", chartData);
-  }.observes("aConfirmation", "aMaterials", "inProduction", "complete", "ready"),
+  }.observes("aConfirmation", "aProductions", "aMaterials", "aProduction", "inProduction", "complete", "ready"),
 
   sort: function(status){
     let controller = this;
@@ -125,6 +126,16 @@ export default Ember.Controller.extend({
     });
   }.observes("model"),
 
+  aProductionObserver: function(){
+    let controller = this;
+
+    this.get("model").forEach(function(item){
+      if(item.get("status") ===  "Awaiting Production"){
+        controller.set("aProduction", controller.get("aProduction") + 1);
+      }
+    });
+  }.observes("model"),
+
   inProductionObserver: function(){
     let controller = this;
 
@@ -159,11 +170,12 @@ export default Ember.Controller.extend({
     selectItem(item){
       if(item === "all"){
         this.set("itemType", "All Item Types");
+        this.set("selectedItem", null);
       }else{
         this.set("itemType", item.get("name"));
         this.set("selectedItem", item);
-        this.sort(this.get("statusSort"));
       }
+      this.sort(this.get("statusSort"));
     },
     sortStatus(status){
       if (status === "all") {
