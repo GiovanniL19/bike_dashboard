@@ -48,7 +48,7 @@
       <span class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{itemType}}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a {{action "selectItem" "all"}}>All</a></li>
+            <li><a {{action "selectItem" "all"}}>All</a></li><br>
             {{#each items as |item|}}
               <li><a {{action "selectItem" item}}>{{item.name}}</a></li>
             {{/each}}
@@ -99,18 +99,15 @@
         {{#if selectedOrder}}
           <h4>{{selectedOrder.transactionID}}<br>{{selectedOrder.status}}</h4>
           <p>
-            Total Cost: <strong>{{selectedOrder.totalHuman}}</strong>
-            <br>
-            ETA: <strong>{{selectedOrder.eta}}</strong>
-            <br>
-            {{#if selectedOrder.note}}Note: <strong>{{selectedOrder.note}}</strong>{{/if}}
-            {{#if selectedOrder.rejectDelivery}}<strong>DELIVERY WAS REJECTED</strong>{{/if}}
+            Customer: <strong>{{selectedOrder.customer.fullName}}</strong><br>
+            Bike Type: <strong>{{selectedOrder.bikeType}}</strong><br>
+            ETA: <strong>{{selectedOrder.etaFormatted}}</strong>
           </p>
 
-          <h5>Order Lines</h5>
+          <h5>Order Manifest</h5>
           <ul class="list-group">
-            {{#each selectedOrder.lines as |line|}}
-              <li class="list-group-item">{{line.name}} {{line.quantity}}x</li>
+            {{#each selectedOrder.manifest.parts as |line|}}
+              <li class="list-group-item col-sm-12 col-md-12"><p class="col-sm-6 col-md-6 left text-left"><strong>{{line.part}}</strong></p><p class="col-sm-6 col-md-6 right text-right">Quantity: <string>{{line.quantity}}</string></p></li>
             {{/each}}
           </ul>
         {{else}}

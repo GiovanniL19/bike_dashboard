@@ -17,9 +17,8 @@ export default Ember.Controller.extend({
   selectedCustomer: null,
   selectedItem: null,
   showingSortedList: false,
-  items: [],
 
-  addData: function(){
+  updateChartData: function(){
     var data = [this.get("aConfirmation"), this.get("aMaterials"), this.get("aProduction"), this.get("inProduction"), this.get("complete"), this.get("ready")];
     var chartData = {
       labels: ["Awaiting Confirmation", "Awaiting Materials", "Awaiting Production", "In Production", "Complete (Awaiting Inspection)", "Ready To Dispatch"],
@@ -51,61 +50,6 @@ export default Ember.Controller.extend({
     this.set("chartData", chartData);
   }.observes("aConfirmation", "aProductions", "aMaterials", "aProduction", "inProduction", "complete", "ready"),
 
-  sort: function(status){
-    let controller = this;
-    this.set("selectedOrder", null);
-    this.set("sortedList", []);
-    this.set("showingSortedList", true);
-
-    this.get("model").forEach(function(item){
-      debugger;
-      if(controller.get("selectedItem")){
-        if(controller.get("selectedCustomer")){
-          if(item.get("status") === status && item.get("customer.id") === controller.get("selectedCustomer.id")){
-            item.get("lines").forEach(function(line){
-              if(line.get("item") === controller.get("selectedItem.id")){
-                controller.get("sortedList").pushObject(item);
-              }
-            });
-          }
-        }else{
-          if(item.get("status") === status){
-            item.get("lines").forEach(function(line){
-              if(line.get("item") === controller.get("selectedItem.id")){
-                controller.get("sortedList").pushObject(item);
-              }
-            });
-          }else if(status === "All Status"){
-            if(controller.get("selectedItem")) {
-              item.get("lines").forEach(function (line) {
-                if (line.get("item") === controller.get("selectedItem.id")) {
-                  controller.get("sortedList").pushObject(item);
-                }
-              });
-            }else{
-              controller.get("sortedList").pushObject(item);
-            }
-          }
-        }
-      } else if(controller.get("selectedCustomer")){
-        if(status === "All Status"){
-          if(item.get("customer.id") === controller.get("selectedCustomer.id")){
-            controller.get("sortedList").pushObject(item);
-          }
-        }else{
-          if(item.get("status") === status && item.get("customer.id") === controller.get("selectedCustomer.id")){
-            controller.get("sortedList").pushObject(item);
-          }
-        }
-      }else{
-        if(status === "All Status"){
-            controller.get("sortedList").pushObject(item);
-        }else if(item.get("status") === status){
-          controller.get("sortedList").pushObject(item);
-        }
-      }
-    });
-  },
   aConfirmationObserver: function(){
     let controller = this;
 
@@ -166,6 +110,67 @@ export default Ember.Controller.extend({
     });
   }.observes("model"),
 
+  sort: function(status){
+    let controller = this;
+    this.set("selectedOrder", null);
+    this.set("sortedList", []);
+    this.set("showingSortedList", true);
+
+    this.get("model").forEach(function(item){
+      if(controller.get("selectedItem")){
+        if(controller.get("selectedCustomer")){
+          if(status === "All Status" && item.get("customer.id") === controller.get("selectedCustomer.id")) {
+            item.get("manifest.parts").forEach(function (line) {
+              if (line.get("part") === controller.get("selectedItem.name")) {
+                controller.get("sortedList").pushObject(item);
+              }
+            });
+          }else if(item.get("status") === status && item.get("customer.id") === controller.get("selectedCustomer.id")){
+            item.get("manifest.parts").forEach(function(line){
+              if(line.get("part") === controller.get("selectedItem.name")){
+                controller.get("sortedList").pushObject(item);
+              }
+            });
+          }
+        }else{
+          if(status === "All Status"){
+            if(controller.get("selectedItem")) {
+              item.get("manifest.parts").forEach(function(line){
+                if(line.get("part") === controller.get("selectedItem.name")){
+                  controller.get("sortedList").pushObject(item);
+                }
+              });
+            }else{
+              controller.get("sortedList").pushObject(item);
+            }
+          } else if(item.get("status") === status){
+            item.get("manifest.parts").forEach(function(line){
+              if(line.get("part") === controller.get("selectedItem.name")){
+                controller.get("sortedList").pushObject(item);
+              }
+            });
+          }
+        }
+      } else if(controller.get("selectedCustomer")){
+        if(status === "All Status"){
+          if(item.get("customer.id") === controller.get("selectedCustomer.id")){
+            controller.get("sortedList").pushObject(item);
+          }
+        }else{
+          if(item.get("status") === status && item.get("customer.id") === controller.get("selectedCustomer.id")){
+            controller.get("sortedList").pushObject(item);
+          }
+        }
+      }else{
+        if(status === "All Status"){
+          controller.get("sortedList").pushObject(item);
+        }else if(item.get("status") === status){
+          controller.get("sortedList").pushObject(item);
+        }
+      }
+    });
+  },
+
   actions: {
     selectItem(item){
       if(item === "all"){
@@ -177,6 +182,7 @@ export default Ember.Controller.extend({
       }
       this.sort(this.get("statusSort"));
     },
+
     sortStatus(status){
       if (status === "all") {
         this.set("statusSort", "All Status");
@@ -186,6 +192,7 @@ export default Ember.Controller.extend({
         this.sort(status);
       }
     },
+
     selectCustomer(customer){
       if(customer === "all"){
         this.set("customerSort", "All Customers");
@@ -196,6 +203,7 @@ export default Ember.Controller.extend({
       }
       this.sort(this.get("statusSort"));
     },
+
     select(order){
       this.set("selectedOrder", order);
     }

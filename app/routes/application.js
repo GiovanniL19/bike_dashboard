@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function(){
-    return this.store.findAll("transaction").then(function(transactions){
+    return this.store.query("transaction", {order: true}).then(function(transactions){
       return transactions;
     });
   },
