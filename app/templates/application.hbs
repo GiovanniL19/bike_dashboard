@@ -1,6 +1,9 @@
 {{partial "navigation"}}
 
-<div class="container section">
+<div class="container section top">
+  <div class="row chart">
+    {{ember-chart type='line' data=chartData height=100}}
+  </div>
   <div class="row header text-center">
     <div class="col-md-2 col-sm-2">
       <h5>Awaiting Confirmation</h5>
@@ -26,9 +29,6 @@
       <h5>Ready To Dispatch</h5>
       <h4>{{ready}}</h4>
     </div>
-  </div>
-  <div class="row">
-    {{ember-chart type='line' data=chartData height=100}}
   </div>
 </div>
 <div class="container section">
@@ -107,7 +107,7 @@
           <h5>Order Manifest</h5>
           <ul class="list-group">
             {{#each selectedOrder.manifest.parts as |line|}}
-              <li class="list-group-item col-sm-12 col-md-12"><p class="col-sm-6 col-md-6 left text-left"><strong>{{line.part}}</strong></p><p class="col-sm-6 col-md-6 right text-right">Quantity: <string>{{line.quantity}}</string></p></li>
+              <li class="list-group-item col-sm-12 col-md-12"><p class="col-sm-6 col-md-6 left text-left"><strong>{{line.part}}</strong></p><p class="col-sm-6 col-md-6 right text-right"><string>{{line.quantity}}</string>x</p></li>
             {{/each}}
           </ul>
         {{else}}

@@ -13,7 +13,6 @@ export default DS.Model.extend({
   dateCreated: attr("number"),
   eta: attr("number"),
   status: attr("string", {defaultValue: "PROCESSING"}),
-  stage: attr("string"),
   customer: belongsTo("customer", {async:true}),
   bikeType: attr("string"),
 

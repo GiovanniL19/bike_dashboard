@@ -1,29 +1,49 @@
 @import "bootstrap";
 
-$theme: #61b5e8;
+$theme: #373f52;
+$darkTheme: #30384a;
 
 body{
   background: #f7f7f7;
 }
 .navbar-default {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: $theme;
   border:none;
+  .navbar-brand{
+    color:white;
+    font-size:1em;
+    padding-top:1em;
+    margin-right:1em;
+    &:hover{
+      color:white;
+    }
+  }
+  height:1em;
   text-transform: uppercase;
+  .navbar-nav{
+    margin-top:1em;
+   a{
+     text-transform: capitalize;
+     color:white;
+   }
+  }
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
   color: #fff;
   background-color: $theme;
 }
+.chart{
+  border-top: 1em solid $darkTheme;
+}
 .header{
   height: 11em;
-  background: #61b5e8;
+  background: $theme;
   color: white;
-  border-top: 1em solid #58a9da;
   text-align: center;
   text-transform: uppercase;
   padding:1em;
-  margin-bottom:2em;
+  margin-top:2em;
   h5{
     position:absolute;
   }
@@ -34,7 +54,6 @@ body{
 }
 .section{
   background: white;
-  margin-top:4em;
   margin-bottom:2em;
   .sort{
     width: 100%;
@@ -68,7 +87,7 @@ body{
   .list{
     padding:1em;
     .orange{
-      color:#ffb31d;
+      color: orange;
     }
     .green{
       color:#42b342;
@@ -78,12 +97,23 @@ body{
     }
     li{
       cursor:pointer;
+      line-height:1em;
       &:hover{
         font-weight:bold;
       }
     }
   }
+  li {
+    line-height: 2em;
+    padding:1em;
+  }
   .summary{
     padding: 2.5em;
+    border-left: 1px solid #d4d4d4;
   }
+}
+
+.top{
+  margin-top:6em;
+  margin-bottom:0em;
 }
