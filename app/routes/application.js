@@ -8,6 +8,7 @@ export default Ember.Route.extend({
   },
   setupController: function(controller, model){
     controller.set("model", model);
+
     controller.set("selectedOrder", model.get("firstObject"));
 
     controller.store.findAll("customer").then(function(customers){
@@ -17,5 +18,6 @@ export default Ember.Route.extend({
     controller.store.findAll("item").then(function(materials){
       controller.set("items", materials);
     });
+
   }
 });

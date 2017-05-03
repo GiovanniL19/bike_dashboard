@@ -109,6 +109,10 @@ export default Ember.Controller.extend({
     });
   }.observes("model"),
 
+  update: function(){
+    this.sort(this.get("statusSort"));
+  }.observes("model"),
+
   sort: function(status){
     let controller = this;
     this.set("selectedOrder", null);

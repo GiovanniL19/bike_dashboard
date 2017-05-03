@@ -15,6 +15,7 @@ export default DS.Model.extend({
   status: attr("string", {defaultValue: "PROCESSING"}),
   customer: belongsTo("customer", {async:true}),
   bikeType: attr("string"),
+  forWeek: attr("number"),
 
   orderDateFormatted: function () {
     return moment.unix(this.get("dateCreated")).format("DD/MM/YYYY");
